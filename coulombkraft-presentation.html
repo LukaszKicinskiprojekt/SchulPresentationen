@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Die Coulombkraft - Präsentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .presentation-container {
+            width: 100%;
+            max-width: 1600px;
+            aspect-ratio: 16 / 9;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 80px 100px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            animation: fadeIn 0.5s ease-in;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Folie 1 - Titel */
+        .slide-title {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .slide-title h1 {
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide-title h2 {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 80px;
+            opacity: 0.95;
+        }
+
+        .slide-title .subtitle {
+            font-size: 32px;
+            margin-top: 60px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Standard Folien */
+        .slide h1 {
+            font-size: 56px;
+            color: #667eea;
+            margin-bottom: 50px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .slide h2 {
+            font-size: 32px;
+            color: #333;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .slide p {
+            font-size: 28px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .slide ul, .slide ol {
+            font-size: 28px;
+            color: #555;
+            margin-left: 60px;
+            line-height: 2;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+        }
+
+        .slide strong {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        /* Formel Styling */
+        .formula {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+            font-size: 36px;
+            font-family: 'Times New Roman', serif;
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .formula-explain {
+            background: #f0f4ff;
+            padding: 30px;
+            border-left: 4px solid #667eea;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+
+        .formula-explain li {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        /* Farbige Symbole */
+        .charge-positive {
+            color: #e74c3c;
+            font-weight: 700;
+            font-size: 32px;
+        }
+
+        .charge-negative {
+            color: #3498db;
+            font-weight: 700;
+            font-size: 32px;
+        }
+
+        /* Beispiel Box */
+        .example-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 5px solid #2ecc71;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-box h3 {
+            font-size: 28px;
+            color: #2ecc71;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        /* Zusammenfassung */
+        .summary-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+        }
+
+        .summary-box li {
+            font-size: 26px;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #333;
+            gap: 20px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .keyboard-hint {
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* Responsiv */
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 40px 50px;
+            }
+
+            .slide h1 {
+                font-size: 42px;
+                margin-bottom: 30px;
+            }
+
+            .slide h2 {
+                font-size: 28px;
+            }
+
+            .slide p, .slide ul, .slide ol {
+                font-size: 22px;
+            }
+
+            .slide-title h1 {
+                font-size: 52px;
+            }
+
+            .slide-title h2 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Folie 1: Titel -->
+        <div class="slide slide-title active">
+            <h1>Die Coulombkraft</h1>
+            <h2>Elektrische Kräfte zwischen geladenen Teilchen</h2>
+            <div class="subtitle">
+                Physik-Präsentation<br>
+                <strong style="font-size: 36px; margin-top: 40px; display: block;">Name, Klasse, Datum</strong>
+            </div>
+        </div>
+
+        <!-- Folie 2: Was ist die Coulombkraft? -->
+        <div class="slide">
+            <h1>Was ist die Coulombkraft?</h1>
+            
+            <h2>Definition</h2>
+            <p>Die Coulombkraft ist die Kraft zwischen zwei <strong>elektrisch geladenen</strong> Körpern.</p>
+
+            <h2>Wichtige Regel</h2>
+            <ul>
+                <li><strong class="charge-positive">+</strong> und <strong class="charge-positive">+</strong> → <strong>Abstoßung</strong> (stoßen sich ab)</li>
+                <li><strong class="charge-negative">−</strong> und <strong class="charge-negative">−</strong> → <strong>Abstoßung</strong> (stoßen sich ab)</li>
+                <li><strong class="charge-positive">+</strong> und <strong class="charge-negative">−</strong> → <strong>Anziehung</strong> (ziehen sich an)</li>
+            </ul>
+        </div>
+
+        <!-- Folie 3: Das Coulombsche Gesetz -->
+        <div class="slide">
+            <h1>Das Coulombsche Gesetz</h1>
+
+            <div class="formula">
+                F = k · (Q₁ · Q₂) / r²
+            </div>
+
+            <div class="formula-explain">
+                <h2 style="margin-top: 0; color: #667eea; font-size: 28px;">Bedeutung der Größen:</h2>
+                <ul style="margin-left: 40px;">
+                    <li><strong>F</strong> = elektrische Kraft</li>
+                    <li><strong>Q₁, Q₂</strong> = elektrische Ladungen</li>
+                    <li><strong>r</strong> = Abstand zwischen den Ladungen</li>
+                    <li><strong>k</strong> = Coulomb-Konstante (feste Naturkonstante)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Folie 4: Wovon hängt die Kraft ab? -->
+        <div class="slide">
+            <h1>Wovon hängt die Coulombkraft ab?</h1>
+
+            <h2 style="color: #2ecc71;">Die Kraft wird GRÖSSER, wenn:</h2>
+            <ul>
+                <li>die Ladungen größer sind</li>
+                <li>der Abstand kleiner wird</li>
+            </ul>
+
+            <h2 style="color: #e74c3c;">Die Kraft wird KLEINER, wenn:</h2>
+            <ul>
+                <li>die Ladungen kleiner sind</li>
+                <li>der Abstand größer wird</li>
+            </ul>
+
+            <div class="example-box">
+                <h3>⚠️ Wichtig: Der Abstand wirkt QUADRATISCH!</h3>
+                <p>Wenn sich der Abstand <strong>verdoppelt</strong>, wird die Kraft <strong>viermal kleiner</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Folie 5: Einheit der elektrischen Ladung -->
+        <div class="slide">
+            <h1>Einheit der elektrischen Ladung</h1>
+
+            <h2>Elektrische Ladung</h2>
+            <ul>
+                <li><strong>Formelzeichen:</strong> Q</li>
+                <li><strong>Einheit:</strong> Coulomb (C)</li>
+            </ul>
+
+            <h2>Kleine Teilchen</h2>
+            <ul>
+                <li><strong class="charge-positive">Proton:</strong> positiv geladen</li>
+                <li><strong class="charge-negative">Elektron:</strong> negativ geladen</li>
+            </ul>
+
+            <h2>Elementarladung</h2>
+            <div class="formula">
+                e = 1,602 × 10⁻¹⁹ C
+            </div>
+            <p style="text-align: center; margin-top: 20px; font-size: 24px; color: #666;">
+                (Die kleinste frei vorkommende Ladungsmenge)
+            </p>
+        </div>
+
+        <!-- Folie 6: Beispiel aus dem Alltag -->
+        <div class="slide">
+            <h1>Beispiel aus dem Alltag</h1>
+
+            <h2>🎈 Der geriebene Luftballon</h2>
+            <ul>
+                <li>Ein Luftballon wird an den Haaren gerieben</li>
+                <li>Er wird dadurch <strong>elektrisch geladen</strong></li>
+                <li>Er kann <strong>Haare anziehen</strong></li>
+                <li>Er <strong>haftet an der Wand</strong></li>
+            </ul>
+
+            <h2 style="color: #667eea;">Warum funktioniert das?</h2>
+            <div class="example-box" style="border-left-color: #f39c12;">
+                <p>Durch die <strong>Reibung</strong> werden elektrische Ladungen verschoben. Dann wirkt die <strong>Coulombkraft</strong> und zieht die Haare an oder hält den Ballon an der Wand fest.</p>
+            </div>
+        </div>
+
+        <!-- Folie 7: Bedeutung in der Physik -->
+        <div class="slide">
+            <h1>Bedeutung in der Physik</h1>
+
+            <h2>Die Coulombkraft ist wichtig für:</h2>
+            <ul>
+                <li>den <strong>Aufbau von Atomen</strong></li>
+                <li><strong>elektrische Felder</strong></li>
+                <li><strong>Strom und Spannung</strong></li>
+                <li><strong>viele technische Anwendungen</strong> (Handys, Computer, LED, etc.)</li>
+            </ul>
+
+            <h2 style="color: #e74c3c; margin-top: 50px;">Ohne Coulombkraft:</h2>
+            <ul>
+                <li>Es gäbe <strong>keine stabilen Atome</strong></li>
+                <li><strong>Elektrizität</strong> würde ganz anders funktionieren</li>
+                <li>Unsere <strong>technische Welt</strong> existierte nicht!</li>
+            </ul>
+        </div>
+
+        <!-- Folie 8: Fazit -->
+        <div class="slide">
+            <h1>Zusammenfassung & Fazit</h1>
+
+            <div class="summary-box">
+                <ul>
+                    <li>✓ <strong>Coulombkraft</strong> = Kraft zwischen elektrischen Ladungen</li>
+                    <li>✓ <strong class="charge-positive">+</strong> und <strong class="charge-positive">+</strong> stoßen sich ab | <strong class="charge-negative">−</strong> und <strong class="charge-negative">−</strong> stoßen sich ab</li>
+                    <li>✓ <strong class="charge-positive">+</strong> und <strong class="charge-negative">−</strong> ziehen sich an</li>
+                    <li>✓ Die Stärke hängt von <strong>Ladung</strong> und <strong>Abstand</strong> ab</li>
+                    <li>✓ Sie ist eine <strong>Grundkraft</strong> für Atome und Elektrizität</li>
+                </ul>
+            </div>
+
+            <p style="text-align: center; margin-top: 50px; font-size: 32px; color: #667eea; font-weight: 700;">
+                Vielen Dank fürs Zuhören! 👋
+            </p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="controls">
+            <button id="prev-btn" onclick="previousSlide()">← Zurück</button>
+            <div class="slide-counter">
+                <span id="current-slide">1</span> / <span id="total-slides">8</span>
+                <div class="keyboard-hint">Nutze Pfeiltasten oder Buttons zum Navigieren</div>
+            </div>
+            <button id="next-btn" onclick="nextSlide()">Weiter →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
