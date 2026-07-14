@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gute und schlechte C++-Prompts</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #0f172a, #1e293b);
+            color: #0f172a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .deck {
+            width: min(1600px, 100%);
+            aspect-ratio: 16 / 9;
+            background: #f8fafc;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+        }
+        .slide {
+            display: none;
+            flex: 1;
+            padding: 60px 80px;
+            overflow-y: auto;
+            background: linear-gradient(140deg, #f8fafc 0%, #e2e8f0 100%);
+            animation: fade .4s ease-in;
+        }
+        .slide.active { display: block; }
+        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+        h1 {
+            font-size: 52px;
+            color: #1d4ed8;
+            margin-bottom: 28px;
+            border-bottom: 4px solid #1d4ed8;
+            padding-bottom: 12px;
+        }
+        h2 {
+            font-size: 32px;
+            color: #0f172a;
+            margin: 20px 0 14px;
+        }
+        p, li {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #1e293b;
+        }
+        ul { margin-left: 34px; }
+        .title {
+            background: linear-gradient(140deg, #1e3a8a 0%, #1d4ed8 100%);
+            color: #eff6ff;
+        }
+        .title h1, .title h2, .title p, .title li { color: #eff6ff; border-color: #93c5fd; }
+        .box {
+            background: #ffffff;
+            border-left: 6px solid #2563eb;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin: 16px 0;
+        }
+        .bad { border-left-color: #dc2626; background: #fef2f2; }
+        .good { border-left-color: #16a34a; background: #f0fdf4; }
+        .code {
+            font-family: "Consolas", "Courier New", monospace;
+            font-size: 21px;
+            white-space: pre-wrap;
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+        .footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 14px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+        }
+        .controls button {
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-left: 8px;
+            background: #1d4ed8;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .controls button:hover { background: #2563eb; }
+        @media (max-width: 1100px) {
+            .slide { padding: 38px 42px; }
+            h1 { font-size: 40px; }
+            h2 { font-size: 27px; }
+            p, li { font-size: 20px; }
+            .code { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="deck">
+        <section class="slide title active">
+            <h1>Gute und schlechte C++-Prompts</h1>
+            <h2>Schulprojekt (5. Abiturfach)</h2>
+            <p>Ziel: Den Unterschied klar sehen, damit KI-Antworten im Privatgebrauch nützlich und sicherer werden.</p>
+            <div class="box" style="margin-top: 26px;">
+                <ul>
+                    <li>Rolle: Schüler, der hinterfragt</li>
+                    <li>Thema: C++ + KI-Halluzinationen</li>
+                    <li>Diese Präsentation läuft automatisch und ist selbsterklärend.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="slide">
+            <h1>1) Schlechte Prompts (Beispiele)</h1>
+            <div class="box bad">
+                <h2>Schlecht, weil unklar</h2>
+                <div class="code">"Schreib was in C++ über Sortieren."</div>
+                <ul>
+                    <li>Kein Ziel (lernen, optimieren oder nur Beispiel?)</li>
+                    <li>Keine Eingrenzung (Anfänger? STL erlaubt?)</li>
+                </ul>
+            </div>
+            <div class="box bad">
+                <h2>Schlecht, weil riskant</h2>
+                <div class="code">"Mach mir den schnellsten Hack für Prüfungen in C++."</div>
+                <ul>
+                    <li>Unethisch und nicht schulgeeignet</li>
+                    <li>Kann zu falschen oder schädlichen Antworten führen</li>
+                </ul>
+            </div>
+            <div class="box bad">
+                <h2>Typisches Halluzinations-Risiko</h2>
+                <ul>
+                    <li>KI erfindet Funktionsnamen oder Bibliotheken.</li>
+                    <li>Code kompiliert nicht oder enthält Logikfehler.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="slide">
+            <h1>2) Gute Prompts (Beispiele)</h1>
+            <div class="box good">
+                <h2>Gut, weil präzise</h2>
+                <div class="code">"Erkläre mir als Einsteiger in C++ den Unterschied zwischen vector und array.
+Nutze einfache Sprache, gib ein kurzes Beispiel mit Ausgabe und nenne 2 typische Fehler."</div>
+            </div>
+            <div class="box good">
+                <h2>Gut, weil überprüfbar</h2>
+                <div class="code">"Schreibe ein C++17-Programm, das eine Liste von Zahlen einliest und mit std::sort sortiert.
+Erkläre jeden Schritt, nenne die Zeitkomplexität und prüfe am Ende, ob der Code ohne externe Bibliotheken kompiliert."</div>
+            </div>
+            <ul>
+                <li>Klare Rolle + Ziel + Niveau</li>
+                <li>Technische Grenzen (Version, Bibliotheken, Stil)</li>
+                <li>Konkrete Ausgabeform und Selbstkontrolle</li>
+            </ul>
+        </section>
+
+        <section class="slide">
+            <h1>3) Checkliste: Was macht einen guten Prompt aus?</h1>
+            <div class="box">
+                <ul>
+                    <li>☑ Kontext: Wofür brauche ich die Antwort?</li>
+                    <li>☑ Ziel: Was soll am Ende genau herauskommen?</li>
+                    <li>☑ Zielgruppe: Anfänger, Fortgeschrittene oder Experte?</li>
+                    <li>☑ Technische Grenzen: C++-Version, erlaubte Bibliotheken, Länge</li>
+                    <li>☑ Format: Erklärung, Stichpunkte, Code, Vergleich</li>
+                    <li>☑ Qualität: Bitte Risiken/Alternativen kurz nennen</li>
+                    <li>☑ Prüfung: "Wenn Infos fehlen, stelle erst Rückfragen."</li>
+                </ul>
+            </div>
+            <p><strong>Merksatz:</strong> Je klarer der Auftrag, desto weniger Halluzinationen.</p>
+        </section>
+
+        <section class="slide">
+            <h1>4) Iterationsmodus in 3 Schritten</h1>
+            <div class="box">
+                <h2>Schritt 1: Entwurf</h2>
+                <p>Erste Antwort erstellen lassen (noch nicht blind übernehmen).</p>
+                <h2>Schritt 2: Selbstprüfung</h2>
+                <p>Schwachstellen suchen: unklare Begriffe, fehlende Tests, falsche C++-Details.</p>
+                <h2>Schritt 3: Final verbessern</h2>
+                <p>Prompt nachschärfen und um Nachweise/Begründungen ergänzen.</p>
+            </div>
+            <div class="box">
+                <h2>Kurz zu Risiken und Alternativen</h2>
+                <ul>
+                    <li>Risiko: falscher Code → immer lokal kompilieren und testen.</li>
+                    <li>Alternative: Lehrbuch/Unterrichtsskript + C++-Referenz parallel nutzen.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="slide">
+            <h1>5) Zusammenfassung + seriöse Quellen</h1>
+            <div class="box good">
+                <ul>
+                    <li>Schlechte Prompts sind vage oder riskant und erzeugen unzuverlässige Antworten.</li>
+                    <li>Gute Prompts sind klar, begrenzt und überprüfbar.</li>
+                    <li>Checkliste + Iteration verbessern die Qualität deutlich.</li>
+                    <li>Bei fehlenden Infos zuerst Rückfragen stellen.</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h2>Seriöse Quellen für C++</h2>
+                <ul>
+                    <li>ISO C++ Foundation: <strong>isocpp.org</strong></li>
+                    <li>cppreference: <strong>en.cppreference.com</strong></li>
+                    <li>C++ Core Guidelines: <strong>isocpp.github.io/CppCoreGuidelines</strong></li>
+                </ul>
+            </div>
+            <p><strong>Fazit:</strong> Gute Prompts sparen Zeit, reduzieren Halluzinationen und machen C++-Lernen sicherer.</p>
+        </section>
+
+        <footer class="footer">
+            <div>Folie <span id="current">1</span> / <span id="total"></span> · Auto-Wechsel alle 12 Sekunden</div>
+            <div class="controls">
+                <button id="prev">← Zurück</button>
+                <button id="toggle">Pause</button>
+                <button id="next">Weiter →</button>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        const slides = Array.from(document.querySelectorAll(".slide"));
+        const total = slides.length;
+        let index = 0;
+        let autoPlay = true;
+        let timer = null;
+
+        const currentEl = document.getElementById("current");
+        const totalEl = document.getElementById("total");
+        const toggleBtn = document.getElementById("toggle");
+
+        totalEl.textContent = total;
+
+        function show(i) {
+            slides[index].classList.remove("active");
+            index = (i + total) % total;
+            slides[index].classList.add("active");
+            currentEl.textContent = String(index + 1);
+        }
+
+        function next() { show(index + 1); }
+        function prev() { show(index - 1); }
+
+        function startAuto() {
+            clearInterval(timer);
+            if (!autoPlay) return;
+            timer = setInterval(next, 12000);
+        }
+
+        document.getElementById("next").addEventListener("click", () => { next(); startAuto(); });
+        document.getElementById("prev").addEventListener("click", () => { prev(); startAuto(); });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") { next(); startAuto(); }
+            if (e.key === "ArrowLeft") { prev(); startAuto(); }
+            if (e.key === " ") {
+                e.preventDefault();
+                autoPlay = !autoPlay;
+                toggleBtn.textContent = autoPlay ? "Pause" : "Play";
+                startAuto();
+            }
+        });
+
+        toggleBtn.addEventListener("click", () => {
+            autoPlay = !autoPlay;
+            toggleBtn.textContent = autoPlay ? "Pause" : "Play";
+            startAuto();
+        });
+
+        startAuto();
+    </script>
+</body>
+</html>
